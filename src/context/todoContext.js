@@ -18,7 +18,7 @@ export default class TodoProvider extends Component {
                 {
                     "id": 2,
                     "description": "in hendrerit gravida rutrum quisque",
-                    "done": false
+                    "done": true
                 },
                 {
                     "id": 3,
@@ -29,13 +29,23 @@ export default class TodoProvider extends Component {
         }
 
     }
+
+    completeTask = (id) => {
+        // console.log(id)
+        this.setState({ todos: this.state.todos.map( todo => {
+            if(todo.id === id){
+                todo.done = !todo.done
+            }
+            return todo
+        })})
+    }
     
     render() {
         const value = {
             state: { ...this.state },
-            // action: {
-            //   getSearch: this.getSearch
-            // }
+            action: {
+             completeTask: this.completeTask
+            }
           };
       
         return (
