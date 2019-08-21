@@ -1,0 +1,13 @@
+import React, {useContext, useEffect} from 'react';
+import { TodoContext } from "../../context/todoContext";
+import Todo from '../Todo/Todo';
+
+const TodoList = () => {
+    const { state: { todos } } = useContext(TodoContext)
+    
+    return todos.map(todo => (
+        <Todo todo={todo}/>
+    ))
+}
+
+export default TodoList
