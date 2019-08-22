@@ -75,6 +75,26 @@ export default class TodoProvider extends Component {
             .catch(error => console.log(error))
     }
 
+    updateTask = (todo, newDescription) => {
+
+        let DATA = {
+            "id": todo.id,
+            "description": newDescription,
+            "done": todo.done
+        }
+
+        fetch(`${this.urlAPI}challenge.put-task`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "challenge-token": "c2435d834e0c5815b07e6aef8b50bbf7" // Token given by e-mail
+            },
+            body: JSON.stringify(DATA)
+          }).then(data => data.json())
+            .then(res => {console.log(res)})
+            .catch(error => console.log(error))
+    }
+
     deleteTask = (id) => {
         // console.log(id)
 
@@ -133,7 +153,8 @@ export default class TodoProvider extends Component {
              completeTask: this.completeTask,
              deleteTask: this.deleteTask,
              editTask: this.editTask,
-             addTask: this.addTask
+             addTask: this.addTask,
+             updateTask: this.updateTask
             }
           };
       
