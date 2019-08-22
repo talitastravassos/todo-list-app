@@ -9,7 +9,7 @@ const App = () => {
   const { state: { todos } } = useContext(TodoContext)
 
   useEffect(() => {
-    console.log(todos)
+    //console.log(todos)
 
   }, [todos])
 

@@ -30,6 +30,29 @@ export default class TodoProvider extends Component {
 
     }
 
+    urlAPI = "https://homolog.compufacil.com.br/rpc/v1/"
+
+    getTasks = () => {
+
+        let DATA = {
+            "search": "lorem ipsum"
+        }
+
+        fetch(`${this.urlAPI}challenge.get-task`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "challenge-token": "c2435d834e0c5815b07e6aef8b50bbf7" // Token given by e-mail
+            },
+            body: DATA
+          }).then(data => data.json())
+            .then(res => {
+                this.setState({ todos: res}, () => console.log(this.state.todos))
+            })
+            .catch(error => console.log(error))
+
+    }
+
     completeTask = (id) => {
         // console.log(id)
         this.setState({ todos: this.state.todos.map( todo => {
@@ -59,11 +82,16 @@ export default class TodoProvider extends Component {
 
         this.setState({ todos: [...this.state.todos, newTask]})
     }
+
+    componentDidMount(){
+        this.getTasks()
+    }
     
     render() {
         const value = {
             state: { ...this.state },
             action: {
+             getTasks: this.getTasks,   
              completeTask: this.completeTask,
              deleteTask: this.deleteTask,
              editTask: this.editTask,
