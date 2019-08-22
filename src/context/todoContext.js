@@ -67,7 +67,19 @@ export default class TodoProvider extends Component {
 
     deleteTask = (id) => {
         // console.log(id)
-        this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]})
+
+        fetch(`${this.urlAPI}challenge.delete-task`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "challenge-token": "c2435d834e0c5815b07e6aef8b50bbf7" // Token given by e-mail
+            },
+            body: JSON.stringify({
+                "ids": [id]
+            })
+          }).then(data => data.json())
+            .then(res => {console.log(res)})
+            .catch(error => console.log(error))
     }
 
     editTask = (id) => {
@@ -76,7 +88,7 @@ export default class TodoProvider extends Component {
 
     addTask = (task) => {
         //console.log(task)
-
+        
         let newTask = {
             "description": task,
             "done": false
