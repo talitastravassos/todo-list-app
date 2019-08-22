@@ -47,7 +47,9 @@ export default class TodoProvider extends Component {
             body: DATA
           }).then(data => data.json())
             .then(res => {
-                this.setState({ todos: res}, () => console.log(this.state.todos))
+                this.setState({ todos: res}, 
+                    //() => console.log(this.state.todos)
+                    )
             })
             .catch(error => console.log(error))
 
@@ -73,17 +75,31 @@ export default class TodoProvider extends Component {
     }
 
     addTask = (task) => {
-        console.log(task)
+        //console.log(task)
+
         let newTask = {
-            "id": this.state.todos.length + 2,
             "description": task,
             "done": false
         }
 
-        this.setState({ todos: [...this.state.todos, newTask]})
+        fetch(`${this.urlAPI}challenge.post-task`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "challenge-token": "c2435d834e0c5815b07e6aef8b50bbf7" // Token given by e-mail
+            },
+            body: JSON.stringify(newTask)
+          }).then(data => data.json())
+            .then(res => {console.log(res)})
+            .catch(error => console.log(error))
+
     }
 
     componentDidMount(){
+        this.getTasks()
+    }
+
+    componentDidUpdate(){
         this.getTasks()
     }
     

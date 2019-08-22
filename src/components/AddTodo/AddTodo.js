@@ -8,7 +8,7 @@ const AddTodo = () => {
     const [task, setTask] = useState("")
 
     useEffect(() => {
-      console.log(task)
+      //console.log(task)
     }, [task])
 
     const onChange = useCallback((e) => {
@@ -20,6 +20,7 @@ const AddTodo = () => {
     );
 
     const onSubmit = (e) => {
+
         e.preventDefault();
         addTask(task)
 
@@ -33,7 +34,7 @@ const AddTodo = () => {
                 type="text" 
                 name="description" 
                 placeholder="Add new task.."
-                value={task.description}
+                value={task}
                 onChange={onChange} />
             <input type="submit" value="Add"/>
         </form>
