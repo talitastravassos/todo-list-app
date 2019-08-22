@@ -12,7 +12,7 @@ const Todo = (props) => {
              style={{ textDecoration: (done) ? "line-through" : "none"}}
         >
             <p>
-            <input type="checkbox" onChange={() => completeTask(id)}/>{" "}
+            <input type="checkbox" onChange={() => completeTask(props.todo)} checked={(done) ? "checked" : ""}/>{" "}
             {description}
             <button onClick={() => deleteTask(id)}>Delete</button>
             <button onClick={() => editTask(id)}>Edit</button>
