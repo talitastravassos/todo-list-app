@@ -3,17 +3,11 @@ import style from "./todo.module.css";
 import { TodoContext } from "../../context/todoContext";
 
 const Todo = (props) => {
-    const { action: { completeTask, editTask, deleteTask, updateTask } } = useContext(TodoContext)
+    const { action: { completeTask, deleteTask, updateTask } } = useContext(TodoContext)
     const { id, description, done } = props.todo;
 
     const [isEdit, setIsEdit] = useState(false)
     const [newDescription, setNewDescription] = useState("")
-
-    const edit = () => {
-        setIsEdit(true)
-        //console.log(newDescription)
-    }
-
     
     const onSubmit = (e) => {
         e.preventDefault();
@@ -25,10 +19,8 @@ const Todo = (props) => {
         const { value } = e.target;
 
         setNewDescription(value)
-
-        //console.log(newDescription)
       },
-      [newDescription]
+      []
     );
 
 
@@ -51,12 +43,10 @@ const Todo = (props) => {
                 <input type="checkbox" onChange={() => completeTask(props.todo)} checked={(done) ? "checked" : ""}/>{" "}
                 {description}
                 <button onClick={() => deleteTask(id)}>Delete</button>
-                <button onClick={edit}>Edit</button>
+                <button onClick={() => setIsEdit(true)}>Edit</button>
                 </p>
             </div>
         ) 
-        
-        
 }
 
 export default Todo

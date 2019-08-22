@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import { TodoContext } from "../../context/todoContext";
 import Todo from '../Todo/Todo';
 
