@@ -39,12 +39,35 @@ export default class TodoProvider extends Component {
             return todo
         })})
     }
+
+    deleteTask = (id) => {
+        // console.log(id)
+        this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]})
+    }
+
+    editTask = (id) => {
+        console.log(id)
+    }
+
+    addTask = (task) => {
+        console.log(task)
+        let newTask = {
+            "id": this.state.todos.length + 2,
+            "description": task,
+            "done": false
+        }
+
+        this.setState({ todos: [...this.state.todos, newTask]})
+    }
     
     render() {
         const value = {
             state: { ...this.state },
             action: {
-             completeTask: this.completeTask
+             completeTask: this.completeTask,
+             deleteTask: this.deleteTask,
+             editTask: this.editTask,
+             addTask: this.addTask
             }
           };
       

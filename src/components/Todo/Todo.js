@@ -3,16 +3,21 @@ import style from "./todo.module.css";
 import { TodoContext } from "../../context/todoContext";
 
 const Todo = (props) => {
-    const { action: { completeTask } } = useContext(TodoContext)
+    const { action: { completeTask, editTask, deleteTask } } = useContext(TodoContext)
+    const { id, description, done } = props.todo;
 
 
     return (
         <div className={style.todo} 
-             style={{ textDecoration: (props.todo.done) ? "line-through" : "none"}}
+             style={{ textDecoration: (done) ? "line-through" : "none"}}
         >
             <p>
-            <input type="checkbox" onChange={() => completeTask(props.todo.id)}/>{" "}
-            {props.todo.description}</p>
+            <input type="checkbox" onChange={() => completeTask(id)}/>{" "}
+            {description}
+            <button onClick={() => deleteTask(id)}>Delete</button>
+            <button onClick={() => editTask(id)}>Edit</button>
+            </p>
+
         </div>
     )
 }
