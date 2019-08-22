@@ -42,8 +42,8 @@ const Todo = (props) => {
                 <p>
                 <input type="checkbox" onChange={() => completeTask(props.todo)} checked={(done) ? "checked" : ""}/>{" "}
                 {description}
-                <button onClick={() => deleteTask(id)}>Delete</button>
-                <button onClick={() => setIsEdit(true)}>Edit</button>
+                <button className="btn btn-primary" onClick={() => deleteTask(id)}><i className="fas fa-trash"></i></button>
+                <button className="btn btn-primary" onClick={() => setIsEdit(true)}><i class="fas fa-edit"></i></button>
                 </p>
             </div>
         ) 
