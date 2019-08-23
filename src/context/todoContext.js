@@ -4,14 +4,12 @@ import Swal from 'sweetalert2'
 
 export const TodoContext = React.createContext({})
 export default class TodoProvider extends Component {
-
     constructor(props) {
         super(props)
     
         this.state = {
             todos: []
         }
-
     }
 
     urlAPI = "https://homolog.compufacil.com.br/rpc/v1/"
@@ -72,8 +70,6 @@ export default class TodoProvider extends Component {
               return data.json()
             })
             .catch(error => console.log(error))
-
-            this.getTasks()
     }
 
     updateTask = (todo, newDescription) => {
@@ -93,7 +89,6 @@ export default class TodoProvider extends Component {
             return data.json()
           })
             .catch(error => console.log(error))
-            this.getTasks()
     }
 
     deleteTask = (id) => {
@@ -109,8 +104,6 @@ export default class TodoProvider extends Component {
             return data.json()
           })
             .catch(error => console.log(error))
-
-            this.getTasks()    
     }
 
     addTask = (task) => {
@@ -134,6 +127,10 @@ export default class TodoProvider extends Component {
     }
 
     componentDidMount(){
+        this.getTasks()
+    }
+     
+    componentDidUpdate(){
         this.getTasks()
     }
     
