@@ -23,30 +23,33 @@ const Todo = (props) => {
       []
     );
 
+    const renderEdit = () => (
+        <form onSubmit={onSubmit} className={style.todo}>
+            <input 
+                type="text" 
+                name="description"
+                className="form-control"
+                defaultValue={description}
+                onChange={onChange}
+                />
+            <button type="submit" className="btn btn-success" style={{marginLeft: 10}}>
+                Edit
+            </button>
+        </form>
+    )
 
-    return (isEdit) ? 
-        (
-            <form onSubmit={onSubmit} className={style.todo}>
-                <input 
-                    type="text" 
-                    name="description"
-                    defaultValue={description}
-                    onChange={onChange}
-                    />
-                <input type="submit" value="Edit"/>
-            </form>
-            ) : (
-            <div className={style.todo} 
-                style={{ textDecoration: (done) ? "line-through" : "none"}}
-            >
-                <p>
-                <input type="checkbox" onChange={() => completeTask(props.todo)} checked={(done) ? "checked" : ""}/>{" "}
-                {description}
-                <button className="btn btn-primary" onClick={() => deleteTask(id)}><i className="fas fa-trash"></i></button>
+    const renderDefault = () => (
+        <div className={style.todo} style={{ textDecoration: (done) ? "line-through" : "none"}}>
+            <input type="checkbox" onChange={() => completeTask(props.todo)} checked={(done) ? "checked" : ""}/>{" "}
+            <p className="col-lg-10 col-sm-8 col-8" style={{marginTop: "auto"}}>{description}</p>
+            <div>
+                <button className="btn btn-danger" style={{margin: 10}} onClick={() => deleteTask(id)}><i className="fas fa-trash"></i></button>
                 <button className="btn btn-primary" onClick={() => setIsEdit(true)}><i class="fas fa-edit"></i></button>
-                </p>
             </div>
-        ) 
+        </div>
+    )
+
+    return (isEdit) ? renderEdit() : renderDefault()
 }
 
 export default Todo

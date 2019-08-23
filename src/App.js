@@ -2,15 +2,16 @@ import React from 'react';
 import './App.css';
 import TodoList from './components/TodoList/TodoList';
 import AddTodo from './components/AddTodo/AddTodo';
+import Header from './components/Header/Header';
 
 const App = () => {
 
   return (
-    <div className="App">
-      <h1>Todo List</h1>
+    <React.Fragment>
+      <Header />
       <AddTodo />
       <TodoList />
-    </div>
+    </React.Fragment>
   );
 }
 
