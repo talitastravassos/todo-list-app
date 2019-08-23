@@ -44,7 +44,7 @@ const Todo = (props) => {
             <p className="col-lg-10 col-sm-8 col-8" style={{marginTop: "auto"}}>{description}</p>
             <div>
                 <button className="btn btn-danger" style={{margin: 10}} onClick={() => deleteTask(id)}><i className="fas fa-trash"></i></button>
-                <button className="btn btn-primary" onClick={() => setIsEdit(true)}><i class="fas fa-edit"></i></button>
+                <button className="btn btn-primary" onClick={() => setIsEdit(true)}><i className="fas fa-edit"></i></button>
             </div>
         </div>
     )

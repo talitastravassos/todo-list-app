@@ -20,6 +20,27 @@ export default class TodoProvider extends Component {
         "challenge-token": "c2435d834e0c5815b07e6aef8b50bbf7" // Token given by e-mail
     }
 
+    Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+    })
+
+    notifications = (status, message, done) => {
+        if(status === 200 && done === true){
+            this.Toast.fire({
+                type: 'success',
+                title: message
+            })
+          } else if (status === 500) {
+            this.Toast.fire({
+                type: 'error',
+                title: 'Something is wrong :/'
+            })    
+        }
+    }
+
     getTasks = () => {
         let DATA = {
             "search": "lorem ipsum"
@@ -47,9 +68,12 @@ export default class TodoProvider extends Component {
             body: JSON.stringify(DATA)
           }).then(data => {
               console.log(data)  
+              this.notifications(data.status, "Complete Task!", DATA.done)
               return data.json()
             })
             .catch(error => console.log(error))
+
+            this.getTasks()
     }
 
     updateTask = (todo, newDescription) => {
@@ -64,10 +88,12 @@ export default class TodoProvider extends Component {
             headers: this.HEADERS,
             body: JSON.stringify(DATA)
           }).then(data => {
-            console.log(data)  
+            console.log(data)
+            this.notifications(data.status, "Task Updated!", true)  
             return data.json()
           })
             .catch(error => console.log(error))
+            this.getTasks()
     }
 
     deleteTask = (id) => {
@@ -78,10 +104,13 @@ export default class TodoProvider extends Component {
                 "ids": [id]
             })
           }).then(data => {
-            console.log(data)  
+            console.log(data)
+            this.notifications(data.status, "Task Deleted!", true)   
             return data.json()
           })
             .catch(error => console.log(error))
+
+            this.getTasks()    
     }
 
     addTask = (task) => {
@@ -96,17 +125,15 @@ export default class TodoProvider extends Component {
             body: JSON.stringify(newTask)
           }).then(data => {
             console.log(data)  
+            this.notifications(data.status, "Task Added!", true) 
             return data.json()
           })
             .catch(error => console.log(error))
-
+        
+        this.getTasks()    
     }
 
     componentDidMount(){
-        this.getTasks()
-    }
-
-    componentDidUpdate(){
         this.getTasks()
     }
     
