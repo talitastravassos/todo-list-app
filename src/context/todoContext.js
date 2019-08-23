@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import 'whatwg-fetch';
+import Swal from 'sweetalert2'
 
 export const TodoContext = React.createContext({})
 export default class TodoProvider extends Component {
