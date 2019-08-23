@@ -1,9 +1,9 @@
 import React, {useContext, useState, useCallback} from 'react'
 import style from "./todo.module.css";
-import { TodoContext } from "../../context/todoContext";
+import { TodoContext } from "../../context/TodoContext";
 
 const Todo = (props) => {
-    const { action: { completeTask, deleteTask, updateTask } } = useContext(TodoContext)
+    const { action: { completeTask, deleteTasks, updateTask } } = useContext(TodoContext)
     const { id, description, done } = props.todo;
 
     const [isEdit, setIsEdit] = useState(false)
@@ -43,7 +43,7 @@ const Todo = (props) => {
             <input type="checkbox" onChange={() => completeTask(props.todo)} checked={(done) ? "checked" : ""}/>{" "}
             <p className="col-lg-10 col-sm-8 col-8" style={{marginTop: "auto"}}>{description}</p>
             <div>
-                <button className="btn btn-danger" style={{margin: 10}} onClick={() => deleteTask(id)}><i className="fas fa-trash"></i></button>
+                <button className="btn btn-danger" style={{margin: 10}} onClick={() => deleteTasks([id])}><i className="fas fa-trash"></i></button>
                 <button className="btn btn-primary" onClick={() => setIsEdit(true)}><i className="fas fa-edit"></i></button>
             </div>
         </div>

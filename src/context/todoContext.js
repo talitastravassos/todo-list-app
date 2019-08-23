@@ -6,7 +6,7 @@ export const TodoContext = React.createContext({})
 export default class TodoProvider extends Component {
     constructor(props) {
         super(props)
-    
+
         this.state = {
             todos: []
         }
@@ -25,6 +25,7 @@ export default class TodoProvider extends Component {
         timer: 3000
     })
 
+    //success and error notifications
     notifications = (status, message, done) => {
         if(status === 200 && done === true){
             this.Toast.fire({
@@ -34,11 +35,12 @@ export default class TodoProvider extends Component {
           } else if (status === 500) {
             this.Toast.fire({
                 type: 'error',
-                title: 'Something is wrong :/'
+                title: "Something's wrong :/"
             })    
         }
     }
 
+    //get tasks from the API
     getTasks = () => {
         let DATA = {
             "search": "lorem ipsum"
@@ -53,6 +55,7 @@ export default class TodoProvider extends Component {
             .catch(error => console.log(error))
     }
 
+    //mark a task as done
     completeTask = (todo) => {
         let DATA = {
             "id": todo.id,
@@ -66,12 +69,13 @@ export default class TodoProvider extends Component {
             body: JSON.stringify(DATA)
           }).then(data => {
               console.log(data)  
-              this.notifications(data.status, "Complete Task!", DATA.done)
+              this.notifications(data.status, "Task completed!", DATA.done)
               return data.json()
             })
             .catch(error => console.log(error))
     }
 
+    //update the description of a task from the API
     updateTask = (todo, newDescription) => {
         let DATA = {
             "id": todo.id,
@@ -85,27 +89,29 @@ export default class TodoProvider extends Component {
             body: JSON.stringify(DATA)
           }).then(data => {
             console.log(data)
-            this.notifications(data.status, "Task Updated!", true)  
+            this.notifications(data.status, "Updated task!", true)  
             return data.json()
           })
             .catch(error => console.log(error))
     }
 
-    deleteTask = (id) => {
+    //delete one or more task from the API
+    deleteTasks = (ids) => {
         fetch(`${this.urlAPI}challenge.delete-task`, {
             method: 'POST',
             headers: this.HEADERS,
             body: JSON.stringify({
-                "ids": [id]
+                "ids": ids
             })
           }).then(data => {
             console.log(data)
-            this.notifications(data.status, "Task Deleted!", true)   
+            this.notifications(data.status, (ids.length > 1) ? "Deleted tasks!" : "Task deleted!", true)   
             return data.json()
           })
             .catch(error => console.log(error))
     }
 
+    //create a new task in the API
     addTask = (task) => {
         let newTask = {
             "description": task,
@@ -118,7 +124,7 @@ export default class TodoProvider extends Component {
             body: JSON.stringify(newTask)
           }).then(data => {
             console.log(data)  
-            this.notifications(data.status, "Task Added!", true) 
+            this.notifications(data.status, "Task added!", true) 
             return data.json()
           })
             .catch(error => console.log(error))
@@ -140,7 +146,7 @@ export default class TodoProvider extends Component {
             action: {
              getTasks: this.getTasks,   
              completeTask: this.completeTask,
-             deleteTask: this.deleteTask,
+             deleteTasks: this.deleteTasks,
              addTask: this.addTask,
              updateTask: this.updateTask
             }

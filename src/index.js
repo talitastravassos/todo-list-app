@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 import './index.css';
 import App from './App';
-import TodoProvider from './context/todoContext';
+import TodoProvider from './context/TodoContext';
 
 ReactDOM.render(
     <TodoProvider>

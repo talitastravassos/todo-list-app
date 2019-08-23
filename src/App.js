@@ -3,6 +3,7 @@ import './App.css';
 import TodoList from './components/TodoList/TodoList';
 import AddTodo from './components/AddTodo/AddTodo';
 import Header from './components/Header/Header';
+import DeleteAllDone from './components/DeleteAllDone/DeleteAllDone';
 
 const App = () => {
 
@@ -11,6 +12,7 @@ const App = () => {
       <Header />
       <AddTodo />
       <TodoList />
+      <DeleteAllDone />
     </React.Fragment>
   );
 }

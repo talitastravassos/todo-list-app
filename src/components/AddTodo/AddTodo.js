@@ -1,5 +1,5 @@
 import React, {useContext, useState, useCallback} from 'react'
-import { TodoContext } from "../../context/todoContext";
+import { TodoContext } from "../../context/TodoContext";
 
 const AddTodo = () => {
 
