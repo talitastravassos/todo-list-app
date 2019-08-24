@@ -35,7 +35,7 @@ export default class TodoProvider extends Component {
           } else if (status === 500) {
             this.Toast.fire({
                 type: 'error',
-                title: "Something's wrong :/"
+                title: "Something's wrong, sorry :/"
             })    
         }
     }
@@ -70,6 +70,7 @@ export default class TodoProvider extends Component {
           }).then(data => {
               console.log(data)  
               this.notifications(data.status, "Task completed!", DATA.done)
+              this.getTasks()
               return data.json()
             })
             .catch(error => console.log(error))
@@ -90,6 +91,7 @@ export default class TodoProvider extends Component {
           }).then(data => {
             console.log(data)
             this.notifications(data.status, "Updated task!", true)  
+            this.getTasks()
             return data.json()
           })
             .catch(error => console.log(error))
@@ -106,6 +108,7 @@ export default class TodoProvider extends Component {
           }).then(data => {
             console.log(data)
             this.notifications(data.status, (ids.length > 1) ? "Deleted tasks!" : "Task deleted!", true)   
+            this.getTasks()
             return data.json()
           })
             .catch(error => console.log(error))
@@ -124,19 +127,14 @@ export default class TodoProvider extends Component {
             body: JSON.stringify(newTask)
           }).then(data => {
             console.log(data)  
-            this.notifications(data.status, "Task added!", true) 
+            this.notifications(data.status, "Task added!", true)
+            this.getTasks() 
             return data.json()
           })
             .catch(error => console.log(error))
-        
-        this.getTasks()    
     }
 
     componentDidMount(){
-        this.getTasks()
-    }
-     
-    componentDidUpdate(){
         this.getTasks()
     }
     

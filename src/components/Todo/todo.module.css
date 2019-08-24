@@ -1,8 +1,12 @@
 .todo {
     display: flex;
     align-items: center;
-    /* justify-content: flex-start; */
-    background-color: #f4f4f4;
+    background-color: #eae9e9;
     padding: 10px;
+    margin: 10px;
     border: 1px #ccc dotted;
+}
+
+p {
+    font-size: 1.2rem;
 }
