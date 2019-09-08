@@ -9,5 +9,7 @@ In the project directory:
 ### Start application
 
 - `npm start`
+### Live Demo
+- https://tst-todoapp.netlify.com/
 
 That's it 😉
