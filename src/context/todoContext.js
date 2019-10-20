@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react';
 import 'whatwg-fetch';
 import Swal from 'sweetalert2'
 
 export const TodoContext = React.createContext({})
-export default class TodoProvider extends Component {
+export default class TodoProvider extends React.PureComponent {
     constructor(props) {
         super(props)
 
@@ -91,7 +91,7 @@ export default class TodoProvider extends Component {
           }).then(data => {
             console.log(data)
             this.notifications(data.status, "Updated task!", true)  
-            this.getTasks()
+            // this.getTasks()
             return data.json()
           })
             .catch(error => console.log(error))
@@ -108,7 +108,7 @@ export default class TodoProvider extends Component {
           }).then(data => {
             console.log(data)
             this.notifications(data.status, (ids.length > 1) ? "Deleted tasks!" : "Task deleted!", true)   
-            this.getTasks()
+            // this.getTasks()
             return data.json()
           })
             .catch(error => console.log(error))
