@@ -3,7 +3,7 @@ import style from "./todo.module.css";
 import { TodoContext } from "../../context/TodoContext";
 
 const Todo = (props) => {
-    const { action: { completeTask, deleteTasks, updateTask } } = useContext(TodoContext)
+    const { action: { deleteTasks, updateTask } } = useContext(TodoContext)
     const { id, description, done } = props.todo;
 
     const [isEdit, setIsEdit] = useState(false)
@@ -11,7 +11,13 @@ const Todo = (props) => {
     
     const onSubmit = (e) => {
         e.preventDefault();
-        updateTask(props.todo, newDescription)
+        let newTodo = {
+            _id: props.todo._id,
+            description: newDescription,
+            done: props.todo.done            
+        }
+
+        updateTask(newTodo)
         setIsEdit(false)
     }
 
@@ -22,6 +28,12 @@ const Todo = (props) => {
       },
       []
     );
+
+    const markAsComplete = (todo) => {
+        todo.done = !todo.done;
+
+        updateTask(todo);
+    }
 
     const renderEdit = () => (
         <form onSubmit={onSubmit} className={style.todo}>
@@ -40,7 +52,7 @@ const Todo = (props) => {
 
     const renderDefault = () => (
         <div className={style.todo} style={{ textDecoration: (done) ? "line-through" : "none"}}>
-            <input type="checkbox" onChange={() => completeTask(props.todo)} checked={(done) ? "checked" : ""}/>{" "}
+            <input type="checkbox" onChange={() => markAsComplete(props.todo)} checked={(done) ? "checked" : ""}/>{" "}
             <p className="col-lg-10 col-sm-8 col-8" style={{marginTop: "auto"}}>{description}</p>
             <div>
                 <button className="btn btn-danger" style={{margin: 10}} onClick={() => deleteTasks([id])}><i className="fas fa-trash"></i></button>

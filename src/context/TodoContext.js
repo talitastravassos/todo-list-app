@@ -50,11 +50,11 @@ export default class TodoProvider extends React.PureComponent {
       .catch(error => console.log(error));
   };
 
-  //mark a task as done
-  completeTask = todo => {
+  //update the description of a task from the API
+  updateTask = (todo) => {
     let DATA = {
       description: todo.description,
-      done: !todo.done
+      done: todo.done
     };
 
     fetch(`${this.urlAPI}/${todo._id}`, {
@@ -64,30 +64,9 @@ export default class TodoProvider extends React.PureComponent {
     })
       .then(data => {
         console.log(data);
-        this.notifications(data.status, "Task completed!", DATA.done);
+        this.notifications(data.status, "Task updated!", true);
+        // this.notifications(data.status, "Task completed!", DATA.done);
         this.getTasks();
-        return data.json();
-      })
-      .catch(error => console.log(error));
-  };
-
-  //update the description of a task from the API
-  updateTask = (todo, newDescription) => {
-    let DATA = {
-      id: todo.id,
-      description: newDescription,
-      done: todo.done
-    };
-
-    fetch(`${this.urlAPI}challenge.put-task`, {
-      method: "POST",
-      headers: this.HEADERS,
-      body: JSON.stringify(DATA)
-    })
-      .then(data => {
-        console.log(data);
-        this.notifications(data.status, "Updated task!", true);
-        // this.getTasks()
         return data.json();
       })
       .catch(error => console.log(error));
@@ -145,7 +124,6 @@ export default class TodoProvider extends React.PureComponent {
       state: { ...this.state },
       action: {
         getTasks: this.getTasks,
-        completeTask: this.completeTask,
         deleteTasks: this.deleteTasks,
         addTask: this.addTask,
         updateTask: this.updateTask
