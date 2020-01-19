@@ -51,7 +51,7 @@ export default class TodoProvider extends React.PureComponent {
   };
 
   //update the description of a task from the API
-  updateTask = (todo) => {
+  updateTask = todo => {
     let DATA = {
       description: todo.description,
       done: todo.done
@@ -72,24 +72,28 @@ export default class TodoProvider extends React.PureComponent {
       .catch(error => console.log(error));
   };
 
-  //delete one or more task from the API
-  deleteTasks = ids => {
-    fetch(`${this.urlAPI}challenge.delete-task`, {
-      method: "POST",
-      headers: this.HEADERS,
-      body: JSON.stringify({
-        ids: ids
-      })
+  //delete by id one task from the API
+  deleteTaskByID = id => {
+    fetch(`${this.urlAPI}/${id}`, {
+      method: "DELETE"
     })
       .then(data => {
         console.log(data);
-        this.notifications(
-          data.status,
-          ids.length > 1 ? "Deleted tasks!" : "Task deleted!",
-          true
-        );
-        // this.getTasks()
-        return data.json();
+        this.notifications(data.status, "Task deleted!", true);
+        this.getTasks();
+      })
+      .catch(error => console.log(error));
+  };
+
+  //delete complete tasks from the API
+  deleteCompleteTasks = () => {
+    fetch(`${this.urlAPI}`, {
+      method: "DELETE"
+    })
+      .then(data => {
+        console.log(data);
+        this.notifications(data.status, "Complete Tasks deleted!", true);
+        this.getTasks();
       })
       .catch(error => console.log(error));
   };
@@ -124,7 +128,8 @@ export default class TodoProvider extends React.PureComponent {
       state: { ...this.state },
       action: {
         getTasks: this.getTasks,
-        deleteTasks: this.deleteTasks,
+        deleteCompleteTasks: this.deleteCompleteTasks,
+        deleteTaskByID: this.deleteTaskByID,
         addTask: this.addTask,
         updateTask: this.updateTask
       }

@@ -5,12 +5,12 @@ const DeleteAllDone = () => {
 
     const { 
         state: { todos }, 
-        action: {  deleteTasks } } = useContext(TodoContext)
+        action: {  deleteCompleteTasks } } = useContext(TodoContext)
 
     // get the id of all completed tasks    
     const getAllDone = () => {
-        let idsToDelete = todos.filter( todo => todo.done === true).map( todo => todo.id)
-        deleteTasks(idsToDelete)
+        // let idsToDelete = todos.filter( todo => todo.done === true).map( todo => todo.id)
+        deleteCompleteTasks()
     }
 
     return (
