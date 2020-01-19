@@ -100,21 +100,19 @@ export default class TodoProvider extends React.PureComponent {
 
   //create a new task in the API
   addTask = task => {
-    let newTask = {
-      description: task,
-      done: false
+    let DATA = {
+      description: task
     };
 
-    fetch(`${this.urlAPI}challenge.post-task`, {
+    fetch(`${this.urlAPI}`, {
       method: "POST",
       headers: this.HEADERS,
-      body: JSON.stringify(newTask)
+      body: JSON.stringify(DATA)
     })
       .then(data => {
         console.log(data);
         this.notifications(data.status, "Task added!", true);
         this.getTasks();
-        return data.json();
       })
       .catch(error => console.log(error));
   };
