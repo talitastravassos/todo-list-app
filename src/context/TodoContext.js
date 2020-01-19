@@ -64,10 +64,8 @@ export default class TodoProvider extends React.PureComponent {
     })
       .then(data => {
         console.log(data);
-        this.notifications(data.status, "Task updated!", true);
-        // this.notifications(data.status, "Task completed!", DATA.done);
+        this.notifications(data.status, (todo.done) ? "Task completed!" : "Task updated!", true);
         this.getTasks();
-        return data.json();
       })
       .catch(error => console.log(error));
   };
